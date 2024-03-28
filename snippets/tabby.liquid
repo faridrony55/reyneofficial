@@ -1,0 +1,155 @@
+<style>
+    #tabbyPromo>div{
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 500px;
+        padding: 18px 1px;
+         
+    }
+    #tabbyPromo div:empty, .styles__tabby-promo-wrapper--43068 div:empty, #tabbyPromo div:empty, .styles__tabby-promo-wrapper--5596b div:empty{
+       display:block !important;
+     }
+     
+    </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" async></script>
+    <script  src="https://checkout.tabby.ai/tabby-promo.js?1655114065453" async></script>
+    <script id="yeniscript" src="https://checkout.tabby.ai/tabby-promo.js" async></script>
+    <script>
+     
+        var index = 0;
+    function refreshScript (src) {
+      $("#ilkim").html('').remove();
+    
+      var scriptElement = document.createElement('script');
+      scriptElement.id="yeniscript"
+      scriptElement.type = 'text/javascript';
+      scriptElement.src = src + '?' + (new Date).getTime();
+      document.getElementsByTagName('head')[0].appendChild(scriptElement);
+    }
+     var url = document.URL;
+      var gp = (url) => {
+        return url.split('/').map((deger, index) => {
+          if (index > 2) return deger
+            }).filter(z => z);
+      }
+      var dil = gp(url);
+      function getCookie(name) {
+      // Split cookie string and get all individual name=value pairs in an array
+      var cookieArr = document.cookie.split(";");
+      
+      // Loop through the array elements
+      for(var i = 0; i < cookieArr.length; i++) {
+          var cookiePair = cookieArr[i].split("=");
+          
+          /* Removing whitespace at the beginning of the cookie name
+          and compare it with the given string */
+          if(name == cookiePair[0].trim()) {
+              // Decode the cookie value and return
+              return decodeURIComponent(cookiePair[1]);
+          }
+      }
+      
+      // Return null if not found
+      return null;
+  }
+function winLoad(callback) {
+  if (document.readyState === 'complete') {
+    callback();
+  } else {
+    window.addEventListener("load", callback);
+  }
+}
+
+winLoad(function() {
+       $("#tabbyPromos").remove();
+      function detay(){
+      var islem= "tabby_log";
+      var urlss = "{{ shop.url }}";
+      var shop_name = "{{ shop.name }}"
+      $(document).ready(function(){
+         $.ajax({
+      url: 'https://json.kutayboga.com/tabby_log.asp',
+      type: 'post',
+      data: {islem:islem,domain:urlss,shop_name:shop_name},
+           dataType: 'html',
+      success: function(response){
+        console.log("oldu");
+                  console.log(response);
+      }
+    });
+         
+    });
+    }
+  
+      if (dil[0] == "ar") {}else{
+        if(getCookie("acscurrency") !== null){
+        var parabirim = getCookie("acscurrency");
+        }else{
+          var parabirim ="AED";
+        }
+
+        if(parabirim == "AED"){
+            var fiyats = {{product.price}};
+          setTimeout(function(){
+          if(fiyats != null ){}else{
+          detay();
+        }
+          }, 2500);
+          console.log("bak="+fiyats);
+          var fiyat = fiyats/100;
+        
+          if (fiyat > 10 && fiyat < 6001) {
+            $("#tabbyPromo").show();
+             new TabbyPromo({
+              selector: '#tabbyPromo', // required, content of Tabby Promo Snippet will be placed in element with that selector
+               source: 'product',
+               currency: 'AED',
+               //styleConfig: { hasBorder: false }
+              price: '' + fiyat + '', // required, price or your product
+              lang: 'EN' // optional, language of snippet and popups, if the property is not set, then it is based on the attribute 'lang' of your html tag
+            });
+          }
+        }
+
+        var intervalId = setInterval(function() {
+        if (parabirim !== getCookie("acscurrency")) {
+          if(getCookie("acscurrency") !== null){
+         parabirim = getCookie("acscurrency");
+        }else{
+           parabirim ="AED";
+        }
+         // parabirim = getCookie("acscurrency");
+          console.log("'selectedCurrency' is now defined: " + parabirim);
+          if(parabirim == "AED"){
+            var fiyats = {{product.price}};
+          setTimeout(function(){
+          if(fiyats != null ){}else{
+          detay();
+        }
+          }, 2500);
+          console.log("bak="+fiyats);
+          var fiyat = fiyats/100;
+        
+          if (fiyat > 10 && fiyat < 6001) {
+            $("#tabbyPromo").show();
+             new TabbyPromo({
+              selector: '#tabbyPromo', // required, content of Tabby Promo Snippet will be placed in element with that selector
+               source: 'product',
+               currency: 'AED',
+               //styleConfig: { hasBorder: false }
+              price: '' + fiyat + '', // required, price or your product
+              lang: 'EN' // optional, language of snippet and popups, if the property is not set, then it is based on the attribute 'lang' of your html tag
+            });
+          }
+        }else{
+ $("#tabbyPromo").hide();
+            
+        }
+
+        }
+        });
+      }
+    });
+    
+    </script>
