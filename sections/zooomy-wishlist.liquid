@@ -1,0 +1,94 @@
+<div class="Container">
+  <header class="PageHeader">
+    <div class="SectionHeader SectionHeader--center">
+      <h1 class="SectionHeader__Heading Heading u-h1">{{ page.title }}</h1>
+    </div>
+  </header>
+
+  <div class="PageContent {% unless section.settings.show_large %}PageContent--narrow{% endunless %} Rte">
+   {{page.content}} <div  id='ZoomyWishlistPage'></div><script src='https://zooomyapps.com/wishlist/ListWishlist.js' data-shop-id='{{shop.permanent_domain}}' data-customer-id='{{customer.id}}' data-customer-email='{{customer.email}}' ></script>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_large",
+      "label": "Large width",
+      "default": false
+    }
+  ]
+}
+{% endschema %}
+
+
+
+<style>
+  #ZoomyWishlistPage li img { 
+    width: 100%;
+}
+.ZoomyWishlistPageGrid {
+    width: 33.33% !important;
+    margin: 10px 0% !important;
+    border: 0px solid #efefef !important;
+    padding: 15px !important;
+}
+  .ZoomyWishlistPageGrid .removefromwishlist {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    line-height: 0px !important;
+    font-size: 20px;
+    border: 0;
+    background: #212b36;
+    color: #ffffff;
+    padding: 0;
+    margin: 0;
+    line-height: 20px;
+    height: 24px;
+    width: 24px;
+    text-align: center;
+}
+  .zbodyinfo{
+  display:none;
+  }
+ 
+  #ZoomyWishlistPage li.zbodyaction  #wishlist_page_product_text {
+    background: #000000;
+    color: #FFFFFF;
+    display: block;
+    display:none;
+}
+#ZoomyWishlistPage li.zbodyaction .zopencartlink {
+    background: #000000;
+    color: #FFFFFF;
+    border: none;
+    padding:10px 15px;
+    width: 100%;
+    text-transform: uppercase;
+    font-family: 'CormorantGaramond-Bold';
+    letter-spacing: .2em;
+}
+  .ZoomyWishlistPageGrid .zbodytitle{}
+.ZoomyWishlistPageGrid .zbodytitle a {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-family: 'Outfit-Light';
+    font-weight: 100;
+    letter-spacing: .1em;
+ 
+}
+  .ZoomyWishlistPageGrid .zprice{
+  	font-size: 18px;
+    margin-bottom:10px;
+  }
+  .PageContent {
+    max-width: 1330px;
+    margin: 35px auto;
+}
+  
+</style>

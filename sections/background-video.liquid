@@ -1,0 +1,177 @@
+{%- capture section_settings -%}
+{
+  "videoType": {{ section.settings.video_url.type | json }},
+  "videoId": {{ section.settings.video_url.id | json }},
+  "requestHost": {{ request.host | json }}
+}
+{%- endcapture -%}
+
+<!-- <section class="Section" id="section-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="background-video" data-section-settings='{{ section_settings }}'> -->
+<section class="Section" id="section-{{ section.id }}" >
+  <div class="ImageHero {% if section.settings.section_size != 'normal' %}ImageHero--{{ section.settings.section_size }}{% endif %}">
+    <div class="ImageHero__VideoHolder"></div>
+    
+    <video  src="{{section.settings.video_url}}" 
+           width="100%" type="video/mp4"  id="video" loop="true" autoplay="autoplay"   muted  >
+	 
+	</video>
+	<div id="sound">
+		<img id="mute" src="{{ 'mute.png' | asset_img_url }}" alt="mute"> 
+		<img id="unmute" src="{{ 'unmute.png' | asset_img_url }}" alt="unmute"  class="mute"> 
+	</div>
+
+    
+    
+    <div class="ImageHero__ContentOverlay bgVideo">
+        <header class="SectionHeader">
+           
+
+          {%- if section.settings.title != blank -%}
+            <h2 class="SectionHeader__Heading Heading u-h1">
+                 {section.settings.title | escape } 
+          </h2>
+          {% else %}
+          <h2 class="SectionHeader__Heading Heading u-h1">
+              "Empowering women to feel confident and beautiful through their own skin by harnessing the transformative <span>power of fashion.</span>"
+          </h2>
+          {%- endif -%}
+
+           
+        </header>
+      </div>
+    
+    
+  </div>
+</section>
+
+
+<style>
+  #sound{
+     position: absolute;
+    bottom: 3%;
+    right: 2%;
+    color: #fff;
+    z-index: 1;
+}
+  #sound img{
+    width: 20px;
+  }
+  #video{
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+  .bgVideo {
+    position: absolute;
+    padding: 0 15px;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.5);
+    top: 0;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background-image: linear-gradient(to top, rgba(4, 4, 4, 0.65), rgba(54, 54, 54, 0.2));
+ 
+}
+.bgVideo h2 {
+    font-size: 30px!important;
+    color: #ffffff;
+    letter-spacing: 1px !important;
+    font-weight: 100;
+    text-transform: inherit !important;
+    max-width: 700px;
+    line-height: 1.3;
+}
+.bgVideo h2 span {
+    font-family: 'CormorantGaramondSemiBoldItalic';
+    font-style: italic;
+}
+  
+ .bgVideo .SectionHeader__Heading.Heading {
+   
+    font-family: 'Outfit-Light';
+   font-weight:100;
+ }
+  .dNone, .mute{
+  display: none !important;
+  }
+  @media(max-width:991px){
+  .bgVideo h2 {
+        font-size: 18px!important;
+    max-width: 450px !important; 
+   }
+
+  }
+    
+    @media(max-width:575px){
+ 
+ 
+    .bgVideo .SectionHeader__Heading.Heading {
+    font-size: 14px !important;
+    margin-top: 1.675em;
+    max-width: 300px;
+    padding-top: 30px;
+}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Background video",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Background videos are automatically muted to allow autoplay. If you require audio, use the \"Featured Video\" section."
+    },
+    {
+      "type": "select",
+      "id": "section_size",
+      "label": "Section size",
+      "options": [
+        {
+          "value": "preserveRatio",
+          "label": "Preserve original ratio"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "preserveRatio"
+    },
+    {
+      "type": "text", 
+      "id": "video_url",
+      "label": "Video URL",
+      "default": "https://cdn.shopify.com/s/files/1/0573/3426/8041/files/raynnologo.mp4?v=1652366174"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"  
+    }
+  ],
+  "presets": [
+    {
+      "category": "Video",
+      "name": "Background video",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}
+
+
